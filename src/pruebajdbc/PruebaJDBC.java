@@ -30,16 +30,19 @@ public class PruebaJDBC {
         
         String selectSQL = "SELECT idEntidad, nombre FROM entidadBancaria WHERE idEntidad = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(selectSQL);
-        preparedStatement.setInt(1, 1);
+        preparedStatement.setInt(1, 2);
         //preparedStatement.setString(2, "Valencia-Malilla");
         ResultSet resultset = preparedStatement.executeQuery();
         //while (resultset.next()) {
         if(resultset.next()==true){
-            
+          
 	String userid = resultset.getString("idEntidad");
 	String username = resultset.getString("nombre");
             System.out.println("IdEntidad: "+userid);
             System.out.println("Nombre: "+username);
+             if(resultset.next()==false){
+                 System.out.println("Existe mas de una unidad Bancaria");
+             }
         }else{
             System.out.println("No existe entidad");
         }
@@ -47,3 +50,11 @@ public class PruebaJDBC {
         connection.close();
 }
 }
+/* if(result.next()==true){
+ * codigo=resultset.getString("codigo");
+ *  if (resultset.next()==true){
+ * throw new RuntimeException("·Existre mas de una entidadBancaria"+id entidad)
+ * }
+ * }
+ * else
+ */
